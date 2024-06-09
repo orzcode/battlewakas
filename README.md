@@ -15,6 +15,7 @@ Gameboards should be able to place ships at specific coordinates by calling the 
 Gameboards should have a receiveAttack function that takes a pair of coordinates, determines whether or not the attack hit a ship and then sends the ‘hit’ function to the correct ship, or records the coordinates of the missed shot.
 Gameboards should keep track of missed attacks so they can display them properly.
 Gameboards should be able to report whether or not all of their ships have been sunk.
+
 Create a Player class/factory.
 There will be two types of players in the game, ‘real’ players and ‘computer’ players.
 Each player object should contain its own gameboard.
