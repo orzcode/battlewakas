@@ -1,27 +1,37 @@
 // Naval Yard factory for ships
 
-interface ShipInterface {
 
-	hit(): void //or string so i can console log 'hit!'?
-	isSunk(): boolean
-}
-
-export class Ship implements ShipInterface {
-	private length: number
-	private hits: number
-	private sunk: boolean
+export class Ship{
+	private _length: number
+	private _hits: number
+	private _sunk: boolean
 	constructor(length: number) {
-		this.length = length
-		this.hits = 0
-		this.sunk = false
+		this._length = length
+		this._hits = 0
+		this._sunk = false
 	}
 	hit() {
-		this.hits++
+		this._hits++
 	}
 	isSunk() {
-		if (this.hits === this.length) {
-			this.sunk = true
+		if (this._hits === this._length) {
+			this._sunk = true
 		}
-		return this.sunk
+		console.log(this._sunk)
+		return this._sunk
+	}
+
+	get length() {
+		return this._length
+	}
+
+	get hits() {
+		return this._hits
 	}
 }
+
+const fuckship = new Ship(1)
+
+fuckship.hit()
+
+console.log(fuckship.isSunk())
