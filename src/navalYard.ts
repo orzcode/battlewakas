@@ -11,6 +11,9 @@ export class Ship{
 		this._sunk = false
 	}
 	hit() {
+		if (this._hits === this._length) {
+			return
+		}else
 		this._hits++
 	}
 	isSunk() {

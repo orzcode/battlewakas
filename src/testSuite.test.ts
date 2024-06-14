@@ -48,4 +48,15 @@ describe('Ship', () => {
 		
 		expect(ship.isSunk()).toBe(true);
 	});
+	it("It shouldnt take more hits than its length", () => {
+
+		ship.hit();
+		ship.hit();
+		ship.hit();
+		ship.hit();
+		ship.hit();
+		ship.hit();
+		expect(ship.hits).toBe(5);
+	});
 })
+
