@@ -2,7 +2,7 @@ import { describe, it, expect, beforeAll, beforeEach, assert } from "vitest";
 
 import { Ship } from "./navalYard";
 import { Gameboard } from "./gameboardModule";
-import { Player } from "./playerModule";
+import { PlayerModule } from "./playerModule";
 
 //
 //Query: return something/change nothing
@@ -114,10 +114,12 @@ describe("Gameboard", () => {
 
 describe("Player", () => {
   it("Should have its own gameboard", () => {
-    let player = new Player();
-    expect(player.gameboard).toBeTypeOf("object");})
-
+    let player1 = PlayerModule.createPlayer("Fuckface")
+    let player2 = PlayerModule.activePlayer
+    expect(player1.gameboard).toBeInstanceOf(Gameboard);
+    expect(player2.gameboard).toBeInstanceOf(Gameboard);
   });
+});
 
 
 

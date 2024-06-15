@@ -1,4 +1,4 @@
-import { Gameboard } from "./gameboardModule";
+//import { Gameboard } from "./gameboardModule";
 
 export class Ship {
   private _length: number;

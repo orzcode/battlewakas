@@ -19,7 +19,9 @@ Gameboards should be able to report whether or not all of their ships have been 
 Create a Player class/factory.
 There will be two types of players in the game, ‘real’ players and ‘computer’ players.
 Each player object should contain its own gameboard.
+
 Import your classes/factories into another file, and drive the game using event listeners to interact with your objects. Create a module that helps you manage actions that should happen in the DOM.
+
 At this point it is appropriate to begin crafting your User Interface.
 Set up a new game by creating Players. For now just populate each player’s Gameboard with predetermined coordinates. You are going to implement a system for allowing players to place their ships later.
 We’ll leave the HTML implementation up to you for now, but you should display both the player’s boards and render them using information from the Gameboard class/factory.

@@ -1,5 +1,5 @@
 import { Ship } from "./navalYard";
-import { Player } from "./playerModule";
+import { PlayerModule } from "./playerModule";
 
 export class Gameboard {
 	[key: string]: { hitMark: boolean, ship: Ship | null };
