@@ -110,3 +110,62 @@ h1 {
 }
 /* ----------------------------------------- */
 
+#splash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 4rem;
+  height: clamp(40rem, 75vh, 80rem);
+  width: clamp(35rem, 75vw, 100rem);
+  margin: auto;
+  line-height: 1.5;
+  background-color: var(--header);
+  box-shadow: 5px 5px 20px 0px black;
+  outline: 1px solid black;
+  border-radius: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: clamp(1.1rem, 3.3vw, 2.2rem);
+}
+/* div:has(input) {
+  position: relative;
+}
+/*radio button styling*/
+/*top section here is a traditional radio button hide method*/
+/*below it is my own implementation to retain validation msg*/
+/* input[type="radio"] { */
+  /* -webkit-appearance: none;
+  appearance: none; */
+  /* For iOS < 15 to remove gradient background */
+  /* background-color: #fff; */
+  /* Not removed via appearance */
+  /* margin: 0; */
+ /* opacity: 0;
+  position: absolute;
+  top: 150%;
+  left: 80%;
+}
+input[type="radio"][data-disabled="true"] + label {
+  filter: grayscale(1) contrast(0.5) brightness(0.5);
+} */
+fieldset[name="modeSelect"]{
+  display: flex;
+  gap: clamp(1rem, 4vw, 2rem);
+}
+.splashRadios {
+  display: flex;
+  flex-direction: column;
+}
+#startButtonsDiv {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 4vw, 2rem);
+}
