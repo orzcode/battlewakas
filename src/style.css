@@ -126,7 +126,7 @@ h2 {
   font-size: clamp(2rem, 5vw, 3rem);
 }
 /* ----------------------------------------- */
-#splash {
+.splashModal {
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -3,15 +3,10 @@ import { PlayerModule } from "./playerModule";
 const main = document.getElementById("main");
 
 const splash: string = `
-          <!-- <div id="infoDisplay">
-            <h2>dynamic</h2>
-            <button class="btnShadow" onclick="GameBoard.reset()">Restart?</button>
-          </div> -->
-
-          <div id="splash">
+          <div id="splash" class="splashModal">
           <p><em>
             The year is 1642, the first known occasion when Māori encountered Europeans. As Māori approached the Dutch ships in canoes, one canoe rammed a ship's boat that was passing between two vessels, killing four Dutchmen. One Māori was hit by a shot from Tasman's men in response to the attack.
-              This sets the stage for...
+              This sets the waters for...
           </em>
           </p>
           <h1>Battlewakas</h1>
@@ -46,8 +41,8 @@ const infoDisplay = () => {
   // const info = document.createElement("h2");
   // infoDisplay.appendChild(info);
   // info.textContent
-  return infoDisplay
-}
+  return infoDisplay;
+};
 
 /////////////////////////////////////////////////////////////
 const tileMarkersX = () => {
@@ -63,9 +58,9 @@ const tileMarkersX = () => {
           <div class="xAx">7</div>
           <div class="xAx">8</div>
           <div class="xAx">9</div>
-          <div class="xAx">10</div>`
-  return xAx
-}
+          <div class="xAx">10</div>`;
+  return xAx;
+};
 const tileMarkersY = () => {
   const yAx = document.createElement("div");
   yAx.id = "yAx";
@@ -79,9 +74,9 @@ const tileMarkersY = () => {
           <div class="yAx">G</div>
           <div class="yAx">H</div>
           <div class="yAx">I</div>
-          <div class="yAx">J</div>`
-  return yAx
-}
+          <div class="yAx">J</div>`;
+  return yAx;
+};
 
 const placement: string = `<div id="placementBoard"></div>`;
 const placementBoard = () => {
@@ -99,15 +94,18 @@ const placementBoard = () => {
     document.getElementById("placementBoard")?.appendChild(tileMarkersX());
     document.getElementById("placementBoard")?.appendChild(tileMarkersY());
   }
-
 };
 
 /////////////////////////////////////////////////////////////
-
-const hotswap: string = ``;
+const hotswap: string = `
+          <div id="hotswap" class="splashModal">
+          <h1>Swap players!</h1>
+          <h2>(no peeking!)</h2>`;
+/////////////////////////////////////////////////////////////
 
 const maingame: string = ``;
 
+/////////////////////////////////////////////////////////////
 const html = {
   splash: () => (main.innerHTML = splash),
   // placement: () => (main.innerHTML = placement),
