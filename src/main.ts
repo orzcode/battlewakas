@@ -1,6 +1,4 @@
-import templates from './htmlComponents';
+import html from './htmlComponents';
 
-const main = document.getElementById('main');
-  main.innerHTML = `
-    ${templates.splash}
-  `;
+//html.splash();
+html.placementBoard;
