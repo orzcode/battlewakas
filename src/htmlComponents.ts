@@ -33,14 +33,18 @@ const splash: string = `
 
           </div>
 `;
-
-const infoDisplay = () => {
+/////////////////////////////////////////////////////////////
+const infoDisplay = (h2TextType: string) => {
   const infoDisplay = document.createElement("div");
   infoDisplay.id = "infoDisplay";
-  infoDisplay.innerHTML = `<h2>Player 1, place your ships!</h2>`;
-  // const info = document.createElement("h2");
-  // infoDisplay.appendChild(info);
-  // info.textContent
+  switch (h2TextType) {
+    case "placementScreen":
+      infoDisplay.innerHTML = `<h2>${PlayerModule.activePlayer.getName()}, place your ships!</h2>`;
+      break;
+    case "mainGameScreen":
+      infoDisplay.innerHTML = `<h2>Fire a shot!</h2>`;
+      break;
+  }
   return infoDisplay;
 };
 
@@ -78,15 +82,16 @@ const tileMarkersY = () => {
   return yAx;
 };
 
-const placement: string = `<div id="placementBoard"></div>`;
 const placementBoard = () => {
+  const placement: string = `<div id="placementBoard"></div>`;
   main.innerHTML = placement;
-  main?.insertBefore(infoDisplay(), main.firstChild);
+  main?.insertBefore(infoDisplay('placementScreen'), main.firstChild);
+  //inserts the infoDisplay BEFORE the firstchild - i.e the placementboard
 
-  for (const key in PlayerModule.player1.gameboard) {
+  for (const key in PlayerModule.activePlayer.gameboard) {
     const tile = document.createElement("div");
     tile.classList.add("placementBoardTile");
-    // tile.innerHTML = key;
+    tile.classList.add(key)
 
     // Append tiles to the placementBoard
     // append tile markers
@@ -95,6 +100,25 @@ const placementBoard = () => {
     document.getElementById("placementBoard")?.appendChild(tileMarkersY());
   }
 };
+
+//const placementScreen = () => {
+//const placement: string = `<div id="placementBoard"></div>`;
+// main.innerHTML = placement;
+// main?.insertBefore(infoDisplay('placementScreen'), main.firstChild);
+// //inserts the infoDisplay BEFORE the firstchild - i.e the placementboard
+
+// for (const key in PlayerModule.activePlayer.gameboard) {
+//   const tile = document.createElement("div");
+//   tile.classList.add("placementBoardTile");
+//   tile.classList.add(key)
+
+//   // Append tiles to the placementBoard
+//   // append tile markers
+//   document.getElementById("placementBoard")?.appendChild(tile);
+//   document.getElementById("placementBoard")?.appendChild(tileMarkersX());
+//   document.getElementById("placementBoard")?.appendChild(tileMarkersY());
+// }
+//}
 
 /////////////////////////////////////////////////////////////
 const hotswap: string = `
