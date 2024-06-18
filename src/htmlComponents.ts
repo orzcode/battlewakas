@@ -34,10 +34,11 @@ const splash: string = `
           </div>
 `;
 /////////////////////////////////////////////////////////////
-const infoDisplay = (h2TextType: string) => {
+const infoDisplay = (screenType: string) => {
   const infoDisplay = document.createElement("div");
   infoDisplay.id = "infoDisplay";
-  switch (h2TextType) {
+
+  switch (screenType) {
     case "placementScreen":
       infoDisplay.innerHTML = `<h2>${PlayerModule.activePlayer.getName()}, place your ships!</h2>`;
       break;
@@ -45,7 +46,11 @@ const infoDisplay = (h2TextType: string) => {
       infoDisplay.innerHTML = `<h2>Fire a shot!</h2>`;
       break;
   }
-  return infoDisplay;
+
+  main?.insertBefore(infoDisplay, main.firstChild);
+  //inserts the infoDisplay BEFORE the firstchild
+
+  //return infoDisplay;
 };
 
 /////////////////////////////////////////////////////////////
@@ -82,44 +87,60 @@ const tileMarkersY = () => {
   return yAx;
 };
 
-const placementBoard = () => {
-  const placement: string = `<div id="placementBoard"></div>`;
-  main.innerHTML = placement;
-  main?.insertBefore(infoDisplay('placementScreen'), main.firstChild);
-  //inserts the infoDisplay BEFORE the firstchild - i.e the placementboard
+// const placementBoard = () => {
+//   infoDisplay("placementScreen");
+
+//   boardDisplay("mainGameScreen");
+
+//   //inserts the infoDisplay
+// };
+
+const boardDisplay = (screenType: string): void => {
+  const parentBox = document.createElement("div");
+  parentBox.id = "boardParentBox";
+  main?.appendChild(parentBox);
+
+  infoDisplay(screenType);
+  //inserts the infoDisplay, which comes with both board screens
+
+  switch (screenType) {
+    case "placementScreen":
+      boardMaker().id = PlayerModule.activePlayer.getName();
+      break;
+    case "mainGameScreen":
+      boardMaker().id = PlayerModule.activePlayer.getName();
+      boardMaker().id = PlayerModule.inactivePlayer.getName();
+      break;
+  }
+}
+
+const boardMaker = () => {
+  //called by 'boardDisplay' helper function
+
+  const board = document.createElement("div");
+  board.classList.add("placementBoard");
+  //creates a board, gives it generic class
 
   for (const key in PlayerModule.activePlayer.gameboard) {
+    //a generic gameboard would do, or even a loop with static keys, but this is less code
     const tile = document.createElement("div");
     tile.classList.add("placementBoardTile");
-    tile.classList.add(key)
+    tile.classList.add(key);
 
     // Append tiles to the placementBoard
     // append tile markers
-    document.getElementById("placementBoard")?.appendChild(tile);
-    document.getElementById("placementBoard")?.appendChild(tileMarkersX());
-    document.getElementById("placementBoard")?.appendChild(tileMarkersY());
+    board.appendChild(tile);
   }
+  board.appendChild(tileMarkersX());
+  board.appendChild(tileMarkersY());
+
+  document.querySelector("#boardParentBox")?.appendChild(board);  
+  return board
+  //creates tiles for THE board just created
+  //creates tile markers
+  //appends all
+  //also returns board, so it can be given a player id
 };
-
-//const placementScreen = () => {
-//const placement: string = `<div id="placementBoard"></div>`;
-// main.innerHTML = placement;
-// main?.insertBefore(infoDisplay('placementScreen'), main.firstChild);
-// //inserts the infoDisplay BEFORE the firstchild - i.e the placementboard
-
-// for (const key in PlayerModule.activePlayer.gameboard) {
-//   const tile = document.createElement("div");
-//   tile.classList.add("placementBoardTile");
-//   tile.classList.add(key)
-
-//   // Append tiles to the placementBoard
-//   // append tile markers
-//   document.getElementById("placementBoard")?.appendChild(tile);
-//   document.getElementById("placementBoard")?.appendChild(tileMarkersX());
-//   document.getElementById("placementBoard")?.appendChild(tileMarkersY());
-// }
-//}
-
 /////////////////////////////////////////////////////////////
 const hotswap: string = `
           <div id="hotswap" class="splashModal">
@@ -127,15 +148,13 @@ const hotswap: string = `
           <h2>(no peeking!)</h2>`;
 /////////////////////////////////////////////////////////////
 
-const maingame: string = ``;
 
 /////////////////////////////////////////////////////////////
 const html = {
   splash: () => (main.innerHTML = splash),
-  // placement: () => (main.innerHTML = placement),
-  placementBoard: placementBoard(),
+  placementBoard: () => boardDisplay("placementScreen"),
   hotswap: () => (main.innerHTML = hotswap),
-  maingame: () => (main.innerHTML = maingame),
+  mainGame: () => boardDisplay("mainGameScreen"),
 };
 
 export default html;
