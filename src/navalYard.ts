@@ -1,12 +1,53 @@
 //import { Gameboard } from "./gameboardModule";
+import { wakas } from "./svgs";
 
 export class Ship {
   private _length: number;
+  private _shipname: string;
+  private _image: string;
   private _hits: number;
   private _sunk: boolean;
   private _positions: [];
+
+  private shipNamer(length: number): string {
+    switch (length) {
+      case 4:
+        return "Waka Taua (4)";
+      case 3:
+        return "Waka Hourua (3)";
+      case 2:
+        return "Waka Tētē (2)";
+      case 1:
+        return "Waka Tīwai (1)";
+      default:
+        return "Unknown Ship";
+    }
+  }
+  // Getter for _image
+  getImage(): string {
+    return this._image;
+  }
+
+  // Setter for _image
+  setImage(length: number): string {
+    switch (length) {
+      case 4:
+        return wakas[4]
+      case 3:
+        return wakas[3]
+      case 2:
+        return wakas[2]
+      case 1:
+        return wakas[1]
+      default:
+        return "Unknown Ship";
+    }
+  }
+
   constructor(length: number) {
     this._length = length;
+    this._shipname = this.shipNamer(length);
+    this._image = this.setImage(length);
     this._hits = 0;
     this._sunk = false;
     this._positions = [];

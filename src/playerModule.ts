@@ -1,10 +1,12 @@
 import { Gameboard } from "./gameboardModule";
+import { Ship } from "./navalYard";
 
 interface Player {
   name: string;
   setName(newName: string): void;
   getName(): string;
   gameboard: Gameboard;
+  getShips: any;
 }
 
 export const PlayerModule = (() => {
@@ -18,11 +20,33 @@ export const PlayerModule = (() => {
         return this.name;
       },
       gameboard: new Gameboard(),
+      getShips: function(this) {
+        return getShips(this); // Ensure to use `this` to refer to the player object
+      },
     };
   };
 
+  function getShips(player: Player) {
+    const ships = [];
+    const uniqueShips = new Set();
+    
+    for (const key in player.gameboard) {
+      const tile = player.gameboard[key];
+      if (tile && tile.ship !== null) {
+      if (!uniqueShips.has(tile.ship)) {
+        uniqueShips.add(tile.ship);
+        ships.push(tile.ship);
+      }
+      }
+    }
+    return ships;
+    }
+
   let player1 = createPlayer("Player 1");
   let player2 = createPlayer("Player 2");
+
+  // player1.getShips = getShips(player1); // Assuming getShips function populates ships based on gameboard
+  // player2.getShips = getShips(player2);
 
   let activePlayer = player1;
   let inactivePlayer = player2;
