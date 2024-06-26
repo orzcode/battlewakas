@@ -56,12 +56,15 @@ export class Ship {
     if (this._hits === this._length) {
       return;
     } else this._hits++;
+
+    //check if sunk on each hit
+    this.isSunk()
   }
   isSunk() {
     if (this._hits === this._length) {
       this._sunk = true;
     }
-    console.log(this._sunk);
+    console.log(this._shipname + " sunk? " + this._sunk);
     return this._sunk;
   }
 

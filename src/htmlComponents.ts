@@ -111,6 +111,7 @@ const boardDisplay = (screenType: string): void => {
       boardMaker().id = PlayerModule.activePlayer.getName();
       boardMaker().id = PlayerModule.inactivePlayer.getName();
       break;
+      //change to data attribute later if needed
   }
 }
 
@@ -125,7 +126,7 @@ const boardMaker = () => {
     //a generic gameboard would do, or even a loop with static keys, but this is less code
     const tile = document.createElement("div");
     tile.classList.add("placementBoardTile");
-    tile.classList.add(key);
+    tile.setAttribute('data-position', key);
 
     // Append tiles to the placementBoard
     // append tile markers

@@ -98,6 +98,7 @@ h1 {
   width: 100%;
   align-items: center;
   justify-content: space-evenly;
+  padding: 1rem;
 }
 #footer {
   background-color: var(--header);
@@ -211,11 +212,13 @@ gap: 8rem;
   align-items: center;
   justify-content: center;
 
+  position: relative;
+  
   width: clamp(3.5rem, 7vw, 7rem);
   height: clamp(3.5rem, 7vw, 7rem);
   font-size: clamp(1rem, 2vw, 3rem);
 
-  outline: 1px solid black;
+  border: 1px solid black;
 }
 
 #xAx{
@@ -244,3 +247,32 @@ gap: 8rem;
   align-items: center;
   justify-content: center;
 }
+
+.ship {
+  background-color: var(--header);
+  border: none;
+}
+.ship + .ship {
+  border: none;
+}
+.ship ~ .ship {
+  border: none;
+}
+
+.hit::before,
+.hit::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70%; /* Adjust size as needed */
+    height: 3px; /* Adjust size as needed */
+    background-color: red; /* Color of the 'X' */
+}
+.hit::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+.hit::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
