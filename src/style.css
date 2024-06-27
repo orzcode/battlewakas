@@ -275,4 +275,16 @@ gap: 8rem;
 .hit::after {
     transform: translate(-50%, -50%) rotate(-45deg);
 }
+.miss::before{
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 70%; /* Adjust size as needed */
+    height: 5px; /* Adjust size as needed */
+    background-color: rgb(58, 82, 167); /* Color of the 'X' */
+}
+.miss::before {
+    transform: translate(-50%, -50%) rotate(180deg);
+}
 

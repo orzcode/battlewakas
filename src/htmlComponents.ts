@@ -1,5 +1,8 @@
 //go inside #main
 import { PlayerModule } from "./playerModule";
+import { hitmarkApplication } from "./eventListeners";
+import { shipPlacer, hitMarkRenderer } from "./domRenderStuff";
+
 const main = document.getElementById("main");
 
 const splash: string = `
@@ -104,6 +107,8 @@ const boardDisplay = (screenType: string): void => {
   //inserts the infoDisplay, which comes with both board screens
 
   switch (screenType) {
+    //gives an ID to the board div, based on player ID
+    //eg "Player 2"
     case "placementScreen":
       boardMaker().id = PlayerModule.activePlayer.getName();
       break;
@@ -113,6 +118,13 @@ const boardDisplay = (screenType: string): void => {
       break;
       //change to data attribute later if needed
   }
+
+  shipPlacer(PlayerModule.player1);
+  hitMarkRenderer();
+  //shipPlacer(PlayerModule.player2);
+  //maybe simply don't call inactive player, rather than modifying the func
+  hitmarkApplication()
+  //should be renamed to event listener adder
 }
 
 const boardMaker = () => {
@@ -128,6 +140,7 @@ const boardMaker = () => {
     tile.classList.add("placementBoardTile");
     tile.setAttribute('data-position', key);
 
+
     // Append tiles to the placementBoard
     // append tile markers
     board.appendChild(tile);
@@ -138,7 +151,7 @@ const boardMaker = () => {
   document.querySelector("#boardParentBox")?.appendChild(board);  
   return board
   //creates tiles for THE board just created
-  //creates tile markers
+  //creates axis tile markers
   //appends all
   //also returns board, so it can be given a player id
 };

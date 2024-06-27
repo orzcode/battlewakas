@@ -22,7 +22,11 @@ export const hitmarkApplication = () => {
     if (positionToShipMap.has(position)) {
       const ship = positionToShipMap.get(position);
       ship.hit(); // Call the hit method on the corresponding ship
+      inactivePlayer.gameboard.receiveAttack(position);
       clickedTile.classList.add("hit");
+    } else {
+      inactivePlayer.gameboard.receiveMiss(position);
+      clickedTile.classList.add("miss");
     }
   });
   
