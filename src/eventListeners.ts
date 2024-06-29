@@ -1,5 +1,6 @@
 import { Gameboard } from "./gameboardModule";
 import { PlayerModule } from "./playerModule";
+import { infoDisplay } from "./htmlComponents";
 
 export const hitmarkApplication = () => {
   const inactivePlayer = PlayerModule.inactivePlayer; // Retrieve the inactive player from PlayerModule
@@ -28,6 +29,7 @@ export const hitmarkApplication = () => {
       inactivePlayer.gameboard.receiveMiss(position);
       clickedTile.classList.add("miss");
     }
+    infoDisplay("swapBtn");
+    //AND REMOVE EVENT LSITERNS / CLICK FUNCITONALITY
   });
-  
 };

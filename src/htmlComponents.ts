@@ -37,9 +37,14 @@ const splash: string = `
           </div>
 `;
 /////////////////////////////////////////////////////////////
-const infoDisplay = (screenType: string) => {
-  const infoDisplay = document.createElement("div");
-  infoDisplay.id = "infoDisplay";
+export const infoDisplay = (screenType: string) => {
+  let infoDisplay = document.getElementById("infoDisplay");
+
+  if (!infoDisplay) {
+    infoDisplay = document.createElement("div");
+    infoDisplay.id = "infoDisplay";
+    main?.insertBefore(infoDisplay, main.firstChild);
+  }
 
   switch (screenType) {
     case "placementScreen":
@@ -48,12 +53,10 @@ const infoDisplay = (screenType: string) => {
     case "mainGameScreen":
       infoDisplay.innerHTML = `<h2>Fire a shot!</h2>`;
       break;
+    case "swapBtn":
+      infoDisplay.innerHTML = `<button class="swapBtn">Swap players!</button>`;
+      break;
   }
-
-  main?.insertBefore(infoDisplay, main.firstChild);
-  //inserts the infoDisplay BEFORE the firstchild
-
-  //return infoDisplay;
 };
 
 /////////////////////////////////////////////////////////////
