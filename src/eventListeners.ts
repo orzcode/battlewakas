@@ -1,6 +1,7 @@
 import { Gameboard } from "./gameboardModule";
 import { PlayerModule } from "./playerModule";
 import { infoDisplay } from "./htmlComponents";
+import { boardDisplay } from "./htmlComponents";
 
 export const hitmarkApplication = () => {
   const inactivePlayer = PlayerModule.inactivePlayer; // Retrieve the inactive player from PlayerModule
@@ -17,7 +18,7 @@ export const hitmarkApplication = () => {
     });
   });
 
-  enemyBoard?.addEventListener("click", (event) => {
+  const tileEventListener = () => {
     const clickedTile = event.target;
     const position = clickedTile.getAttribute("data-position");
     if (positionToShipMap.has(position)) {
@@ -29,7 +30,17 @@ export const hitmarkApplication = () => {
       inactivePlayer.gameboard.receiveMiss(position);
       clickedTile.classList.add("miss");
     }
+
     infoDisplay("swapBtn");
-    //AND REMOVE EVENT LSITERNS / CLICK FUNCITONALITY
-  });
+    enemyBoard?.removeEventListener("click", tileEventListener);
+    //removes ability to click on a tile after the first click
+  };
+
+  enemyBoard?.addEventListener("click", tileEventListener);
 };
+
+export const swapButton = () => {
+  console.log("SWAP BUTTON CLICKED");
+  PlayerModule.switchActive();
+  boardDisplay("mainGameScreen")
+}

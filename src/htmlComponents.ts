@@ -2,6 +2,7 @@
 import { PlayerModule } from "./playerModule";
 import { hitmarkApplication } from "./eventListeners";
 import { shipPlacer, hitMarkRenderer } from "./domRenderStuff";
+import { swapButton } from "./eventListeners";
 
 const main = document.getElementById("main");
 
@@ -51,10 +52,13 @@ export const infoDisplay = (screenType: string) => {
       infoDisplay.innerHTML = `<h2>${PlayerModule.activePlayer.getName()}, place your ships!</h2>`;
       break;
     case "mainGameScreen":
-      infoDisplay.innerHTML = `<h2>Fire a shot!</h2>`;
+      infoDisplay.innerHTML = `<h2>${PlayerModule.activePlayer.getName()}, fire a shot!</h2>`;
       break;
     case "swapBtn":
       infoDisplay.innerHTML = `<button class="swapBtn">Swap players!</button>`;
+      const swap = document.querySelector(".swapBtn");
+        swap?.addEventListener("click", swapButton);
+
       break;
   }
 };
@@ -101,7 +105,10 @@ const tileMarkersY = () => {
 //   //inserts the infoDisplay
 // };
 
-const boardDisplay = (screenType: string): void => {
+export const boardDisplay = (screenType: string): void => {
+  document.querySelector("#boardParentBox")?.remove();
+
+  //removes any previous board
   const parentBox = document.createElement("div");
   parentBox.id = "boardParentBox";
   main?.appendChild(parentBox);
@@ -122,10 +129,12 @@ const boardDisplay = (screenType: string): void => {
       //change to data attribute later if needed
   }
 
-  shipPlacer(PlayerModule.player1);
+  shipPlacer(PlayerModule.activePlayer);
+  //places active player's ships on left board
+
   hitMarkRenderer();
-  //shipPlacer(PlayerModule.player2);
-  //maybe simply don't call inactive player, rather than modifying the func
+  //places both sides' hitmarks 
+
   hitmarkApplication()
   //should be renamed to event listener adder
 }
