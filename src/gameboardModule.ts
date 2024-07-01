@@ -2,10 +2,12 @@ import { Ship } from "./navalYard";
 import { PlayerModule } from "./playerModule";
 
 export class Gameboard {
-  [key: string]: { hitMark: boolean | null, ship: Ship | null };
+  [key: string]: { hitMark: boolean | null; ship: Ship | null };
 
   constructor() {
-    const board: { [key: string]: { hitMark: boolean | null, ship: Ship | null } } = {};
+    const board: {
+      [key: string]: { hitMark: boolean | null; ship: Ship | null };
+    } = {};
     const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
     for (const letter of letters) {
       for (let number = 1; number <= 10; number++) {
@@ -26,11 +28,14 @@ export class Gameboard {
   }
 
   placeShip(ship: Ship, ...placementTiles: string[]) {
-    placementTiles.forEach(position => {
+    placementTiles.forEach((position) => {
       if (this[position]) {
         this[position].ship = ship;
-      } else {
-        console.error(`Invalid position: ${position}`);
+        // Ensure the tile has the .ship class after placing the ship
+        const tile = document.querySelector(`[data-position='${position}']`);
+        if (tile) {
+          tile.classList.add("ship");
+        }
       }
     });
     ship.positions = placementTiles;

@@ -32,7 +32,7 @@ export const hitMarkRenderer = () => {
 
     for (let position in playerBoard) {
       let tile = playerBoard[position];
-      console.log(tile);
+     
 
       let childTile = boardElement.querySelector(
         `[data-position='${position}']`

@@ -3,6 +3,7 @@ import { PlayerModule } from "./playerModule";
 import { hitmarkApplication } from "./eventListeners";
 import { shipPlacer, hitMarkRenderer } from "./domRenderStuff";
 import { swapButton } from "./eventListeners";
+import { startShipPlacement } from "./shipPlacement";
 
 const main = document.getElementById("main");
 
@@ -121,22 +122,28 @@ export const boardDisplay = (screenType: string): void => {
     //eg "Player 2"
     case "placementScreen":
       boardMaker().id = PlayerModule.activePlayer.getName();
+
+      startShipPlacement();
+
       break;
+      
     case "mainGameScreen":
       boardMaker().id = PlayerModule.activePlayer.getName();
       boardMaker().id = PlayerModule.inactivePlayer.getName();
+
+      shipPlacer(PlayerModule.activePlayer);
+      //places active player's ships on left board
+    
+      hitmarkApplication()
+      //should be renamed to event listener adder
+
+      hitMarkRenderer();
+      //places both sides' hitmarks 
       break;
       //change to data attribute later if needed
   }
 
-  shipPlacer(PlayerModule.activePlayer);
-  //places active player's ships on left board
 
-  hitMarkRenderer();
-  //places both sides' hitmarks 
-
-  hitmarkApplication()
-  //should be renamed to event listener adder
 }
 
 const boardMaker = () => {

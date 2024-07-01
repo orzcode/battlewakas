@@ -248,6 +248,10 @@ gap: 8rem;
   justify-content: center;
 }
 
+.tempShip {
+  background-color: #4d271d;
+  border: none;
+}
 .ship {
   background-color: var(--header);
   border: none;
@@ -256,6 +260,12 @@ gap: 8rem;
   border: none;
 }
 .ship ~ .ship {
+  border: none;
+}
+.tempShip  + .tempShip {
+  border: none;
+}
+.tempShip ~ .tempShip {
   border: none;
 }
 
