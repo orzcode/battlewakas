@@ -32,13 +32,23 @@ export const hitmarkApplication = () => {
       clickedTile.classList.add("miss");
     }
 
+    if(inactivePlayer.gameboard.checkAllSunk()){
+      //PROBLEM:
+      //INACTIVE PLAYER SEEMINGLY ALWAYS HAS SUNK SHIPS
+      html.winner();
+    }else {
     infoDisplay("swapBtn");
     enemyBoard?.removeEventListener("click", tileEventListener);
     //removes ability to click on a tile after the first click
+    }
   };
 
   enemyBoard?.addEventListener("click", tileEventListener);
 };
+
+//////////////////////////////////////////
+
+
 
 export const swapButton = () => {
   html.hotswap()

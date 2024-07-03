@@ -26,32 +26,32 @@ export class Ship {
     }
   }
   // Getter for _image
-  getImage(): string {
-    return this._image;
-  }
+  // getImage(): string {
+  //   return this._image;
+  // }
 
   // Setter for _image
-  setImage(length: number): string {
-    switch (length) {
-      case 5:
-        return wakas[5]
-      case 4:
-        return wakas[4]
-      case 3:
-        return wakas[3]
-      case 2:
-        return wakas[2]
-      case 1:
-        return wakas[1]
-      default:
-        return "Unknown Ship";
-    }
-  }
+  // setImage(length: number): string {
+  //   switch (length) {
+  //     case 5:
+  //       return wakas[5]
+  //     case 4:
+  //       return wakas[4]
+  //     case 3:
+  //       return wakas[3]
+  //     case 2:
+  //       return wakas[2]
+  //     case 1:
+  //       return wakas[1]
+  //     default:
+  //       return "Unknown Ship";
+  //   }
+  // }
 
   constructor(length: number) {
     this._length = length;
     this._shipname = this.shipNamer(length);
-    this._image = this.setImage(length);
+    // this._image = this.setImage(length);
     this._hits = 0;
     this._sunk = false;
     this._positions = [];

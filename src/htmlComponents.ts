@@ -7,7 +7,8 @@ import { startShipPlacement, ships, currentShipIndex } from "./shipPlacement";
 
 const main = document.getElementById("main");
 
-const splash: string = `
+export const startScreen = () => {
+  const splash: string = `
           <div id="splash" class="splashModal">
           <p><em>
             The year is 1642, the first known occasion when Māori encountered Europeans. As Māori approached the Dutch ships in canoes, one canoe rammed a ship's boat that was passing between two vessels, killing four Dutchmen. One Māori was hit by a shot from Tasman's men in response to the attack.
@@ -18,26 +19,43 @@ const splash: string = `
 
           <form id="modeSelect" method="dialog" required>
 						
-						<fieldset form="modeSelect" name="modeSelect">
-							<legend hidden>Mode Select:</legend>
-						<div class="splashRadios">
-							<input type="radio" id="cpu" value="cpu" name="modeSelect" checked>
-							<label for="cpu">vs CPU</label>
-						</div>
-						<div class="splashRadios">
-							<input type="radio" id="human" value="human" name="modeSelect">
-							<label for="human">vs Human</label>
-						</div>
-						</fieldset>
+
 
           <div id="startButtonsDiv">
 						<button c
-            lass="btnShadow" type="submit" form="modeSelect">Confirm</button>
+            lass="btnShadow" type="submit" form="modeSelect">To the seas!</button>
 					</div>
 					</form>
 
           </div>
 `;
+//goes right beneath form tag above
+//
+// <fieldset form="modeSelect" name="modeSelect">
+// <legend hidden>Mode Select:</legend>
+// <div class="splashRadios">
+// <input type="radio" id="cpu" value="cpu" name="modeSelect" checked>
+// <label for="cpu">vs CPU</label>
+// </div>
+// <div class="splashRadios">
+// <input type="radio" id="human" value="human" name="modeSelect">
+// <label for="human">vs Human</label>
+// </div>
+// </fieldset>
+
+
+main.innerHTML = splash;
+ 
+
+  const start = document.querySelector("#startButtonsDiv");
+  start?.addEventListener("click", startHandler);
+
+  function startHandler() {
+    html.placementBoard();
+    document.querySelector(".splashModal")?.remove(); 
+   }
+  }
+
 /////////////////////////////////////////////////////////////
 export const infoDisplay = (screenType: string) => {
   let infoDisplay = document.getElementById("infoDisplay");
@@ -69,7 +87,7 @@ export const infoDisplay = (screenType: string) => {
       swap?.addEventListener("click", swapButton);
       break;
     case "clear":
-      infoDisplay.innerHTML = "";
+      infoDisplay.remove();
       break
   }
 };
@@ -200,13 +218,26 @@ export const showHotswapModal = () => {
   PlayerModule.switchActive();
 };
 /////////////////////////////////////////////////////////////
+export const winFunc = (player: Player) => {
+  const winsplash: string = `
+  <div id="winsplash" class="splashModal">
+      <h1>Congratulations!</h1>
+      <h2>${player.getName()} has won!</h2>
+      <button class="winBtn">Play again?</button>
+  </div>`;
 
+main.innerHTML = winsplash;
+
+const btn = document.querySelector(".winBtn");
+btn?.addEventListener("click", html.splash);
+}
 /////////////////////////////////////////////////////////////
 const html = {
-  splash: () => (main.innerHTML = splash),
+  splash: () => startScreen(),
   placementBoard: () => boardDisplay("placementScreen"),
   hotswap: () => showHotswapModal(),
   mainGame: () => boardDisplay("mainGameScreen"),
+  winner: () => winFunc(PlayerModule.activePlayer),
 };
 
 export default html;
