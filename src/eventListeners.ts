@@ -2,6 +2,7 @@ import { Gameboard } from "./gameboardModule";
 import { PlayerModule } from "./playerModule";
 import { infoDisplay } from "./htmlComponents";
 import { boardDisplay } from "./htmlComponents";
+import html from "./htmlComponents";
 
 export const hitmarkApplication = () => {
   const inactivePlayer = PlayerModule.inactivePlayer; // Retrieve the inactive player from PlayerModule
@@ -40,7 +41,17 @@ export const hitmarkApplication = () => {
 };
 
 export const swapButton = () => {
-  console.log("SWAP BUTTON CLICKED");
-  PlayerModule.switchActive();
-  boardDisplay("mainGameScreen")
+  html.hotswap()
+}
+
+export const placementSwap = () => {
+  document.querySelector(".splashModal")?.remove();
+  //why not working when moving to main game?
+  
+  if(PlayerModule.player2.getShips().length === 0){
+    //if P2 has no ships, then show placement screen for them instead of maingame
+        boardDisplay("placementScreen");
+  } else {
+    boardDisplay("mainGameScreen");
+  }
 }

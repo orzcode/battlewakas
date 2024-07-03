@@ -249,25 +249,26 @@ gap: 8rem;
 }
 
 .tempShip {
-  background-color: #4d271d;
+  /* background-color: #4d271d; */
+   background-color: var(--header);
   border: none;
+}
+.tempShip:active, .tempShip:active + .tempShip, .tempShip:active ~ .tempShip {
+  background-color: #4d271d;
+
 }
 .ship {
   background-color: var(--header);
   border: none;
 }
+
 .ship + .ship {
   border: none;
 }
 .ship ~ .ship {
   border: none;
 }
-.tempShip  + .tempShip {
-  border: none;
-}
-.tempShip ~ .tempShip {
-  border: none;
-}
+
 
 .hit::before,
 .hit::after {

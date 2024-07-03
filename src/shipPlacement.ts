@@ -1,22 +1,28 @@
 import { PlayerModule } from "./playerModule";
 import { Ship } from "./navalYard"
+import html, { infoDisplay } from "./htmlComponents";
 import { shipPlacer, hitMarkRenderer } from "./domRenderStuff";
 
+
+export const ships = [
+    new Ship(5),
+    new Ship(4),
+    new Ship(3),
+    new Ship(3),
+    new Ship(2)
+];
+
+export let currentShipIndex = 0;
 export const startShipPlacement = () => {
     const activePlayer = PlayerModule.activePlayer;
     const boardElement = document.getElementById(activePlayer.getName());
 
     if (!boardElement) return;
 
-    let currentShipIndex = 0;
-    const ships = [
-        new Ship(5),
-        new Ship(4),
-        new Ship(3),
-        new Ship(3),
-        new Ship(2)
-    ];
 
+
+
+//////////////////////////////////////////////////////////////////////////////
     const handleMouseOver = (event: MouseEvent) => {
         const tile = event.target as HTMLElement;
         if (!tile.classList.contains('placementBoardTile')) return;
@@ -33,6 +39,7 @@ export const startShipPlacement = () => {
 
         clearHighlightedPlacement(boardElement);
     };
+//////////////////////////////////////////////////////////////////////////////
 
     const handleClick = (event: MouseEvent) => {
         const tile = event.target as HTMLElement;
@@ -42,21 +49,38 @@ export const startShipPlacement = () => {
         if (position && validateShipPlacement(activePlayer.gameboard, position, ships[currentShipIndex])) {
             placeShip(activePlayer, ships[currentShipIndex], position);
             currentShipIndex++;
+
+            
             if (currentShipIndex >= ships.length) {
+                //if all ships are placed, then swap players
                 boardElement.removeEventListener('mouseover', handleMouseOver);
                 boardElement.removeEventListener('mouseout', handleMouseOut);
                 boardElement.removeEventListener('click', handleClick);
-                // Move to the next phase of the game, like starting the game
-                startGame();
+
+                html.hotswap()
+                //show swap screen, WHICH ALSO swaps 'active player'
+                currentShipIndex = 0;
+                //hotswap then proceeds with progression logic
+
+            } else {
+                //otherwise continue with same player's ships
+                infoDisplay("placementDynamic");
+                //this triggers after each ship placement - same player}
             }
+
+            
         }
     };
 
     boardElement.addEventListener('mouseover', handleMouseOver);
     boardElement.addEventListener('mouseout', handleMouseOut);
     boardElement.addEventListener('click', handleClick);
-};
 
+    return ships
+};
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 const highlightPotentialShipPlacement = (boardElement: HTMLElement, startPosition: string, ship: Ship) => {
     const positions = getPotentialShipPositions(startPosition, ship.length);
     positions.forEach(position => {
@@ -65,6 +89,7 @@ const highlightPotentialShipPlacement = (boardElement: HTMLElement, startPositio
             tile.classList.add('tempShip');
         }
     });
+    
 };
 
 const clearHighlightedPlacement = (boardElement: HTMLElement) => {
@@ -117,4 +142,4 @@ const startGame = () => {
 };
 
 // Call this function to start the ship placement phase
-startShipPlacement();
+//startShipPlacement();

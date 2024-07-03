@@ -12,17 +12,17 @@ export class Ship {
   private shipNamer(length: number): string {
     switch (length) {
       case 5:
-        return "Waka Supreme (5) ";
+        return "Waka Supreme (5)";
       case 4:
-        return "Waka Taua (4) ";
+        return "Waka Taua (4)";
       case 3:
-        return "Waka Hourua (3) ";
+        return "Waka Hourua (3)";
       case 2:
-        return "Waka Tētē (2) ";
+        return "Waka Tētē (2)";
       case 1:
-        return "Waka Tīwai (1) ";
+        return "Waka Tīwai (1)";
       default:
-        return "Unknown Ship ";
+        return "Unknown Ship";
     }
   }
   // Getter for _image
@@ -78,6 +78,10 @@ export class Ship {
 
   get hits() {
     return this._hits;
+  }
+
+  get name() {
+    return this._shipname;
   }
 
   get positions() {

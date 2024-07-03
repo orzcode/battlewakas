@@ -2,8 +2,8 @@
 import { PlayerModule } from "./playerModule";
 import { hitmarkApplication } from "./eventListeners";
 import { shipPlacer, hitMarkRenderer } from "./domRenderStuff";
-import { swapButton } from "./eventListeners";
-import { startShipPlacement } from "./shipPlacement";
+import { swapButton, placementSwap } from "./eventListeners";
+import { startShipPlacement, ships, currentShipIndex } from "./shipPlacement";
 
 const main = document.getElementById("main");
 
@@ -42,6 +42,7 @@ const splash: string = `
 export const infoDisplay = (screenType: string) => {
   let infoDisplay = document.getElementById("infoDisplay");
 
+  //create the div if it isn't there already
   if (!infoDisplay) {
     infoDisplay = document.createElement("div");
     infoDisplay.id = "infoDisplay";
@@ -49,8 +50,15 @@ export const infoDisplay = (screenType: string) => {
   }
 
   switch (screenType) {
+    case "placementDynamic":
+      infoDisplay.innerHTML = `<h2>${PlayerModule.activePlayer.getName()}, place your ${
+        ships[currentShipIndex].name}!</h2>`;
+      break;
+    //this one used as the player places each ship
+
+    //this one used initially
     case "placementScreen":
-      infoDisplay.innerHTML = `<h2>${PlayerModule.activePlayer.getName()}, place your ships!</h2>`;
+      infoDisplay.innerHTML = `<h2>${PlayerModule.activePlayer.getName()}, place your Waka Supreme (5)!</h2>`;
       break;
     case "mainGameScreen":
       infoDisplay.innerHTML = `<h2>${PlayerModule.activePlayer.getName()}, fire a shot!</h2>`;
@@ -58,9 +66,11 @@ export const infoDisplay = (screenType: string) => {
     case "swapBtn":
       infoDisplay.innerHTML = `<button class="swapBtn">Swap players!</button>`;
       const swap = document.querySelector(".swapBtn");
-        swap?.addEventListener("click", swapButton);
-
+      swap?.addEventListener("click", swapButton);
       break;
+    case "clear":
+      infoDisplay.innerHTML = "";
+      break
   }
 };
 
@@ -112,6 +122,7 @@ export const boardDisplay = (screenType: string): void => {
   //removes any previous board
   const parentBox = document.createElement("div");
   parentBox.id = "boardParentBox";
+  
   main?.appendChild(parentBox);
 
   infoDisplay(screenType);
@@ -126,25 +137,23 @@ export const boardDisplay = (screenType: string): void => {
       startShipPlacement();
 
       break;
-      
+
     case "mainGameScreen":
       boardMaker().id = PlayerModule.activePlayer.getName();
       boardMaker().id = PlayerModule.inactivePlayer.getName();
 
       shipPlacer(PlayerModule.activePlayer);
       //places active player's ships on left board
-    
-      hitmarkApplication()
+
+      hitmarkApplication();
       //should be renamed to event listener adder
 
       hitMarkRenderer();
-      //places both sides' hitmarks 
+      //places both sides' hitmarks
       break;
-      //change to data attribute later if needed
+    //change to data attribute later if needed
   }
-
-
-}
+};
 
 const boardMaker = () => {
   //called by 'boardDisplay' helper function
@@ -157,8 +166,7 @@ const boardMaker = () => {
     //a generic gameboard would do, or even a loop with static keys, but this is less code
     const tile = document.createElement("div");
     tile.classList.add("placementBoardTile");
-    tile.setAttribute('data-position', key);
-
+    tile.setAttribute("data-position", key);
 
     // Append tiles to the placementBoard
     // append tile markers
@@ -167,26 +175,37 @@ const boardMaker = () => {
   board.appendChild(tileMarkersX());
   board.appendChild(tileMarkersY());
 
-  document.querySelector("#boardParentBox")?.appendChild(board);  
-  return board
+  document.querySelector("#boardParentBox")?.appendChild(board);
+  return board;
   //creates tiles for THE board just created
   //creates axis tile markers
   //appends all
   //also returns board, so it can be given a player id
 };
 /////////////////////////////////////////////////////////////
-const hotswap: string = `
-          <div id="hotswap" class="splashModal">
+export const showHotswapModal = () => {
+  const hotswap: string = `
+      <div id="hotswap" class="splashModal">
           <h1>Swap players!</h1>
-          <h2>(no peeking!)</h2>`;
-/////////////////////////////////////////////////////////////
+          <h2>(no peeking!)</h2>
+          <button class="placementSwap">Swap players</button>
+      </div>`;
 
+  main.innerHTML = hotswap;
+  infoDisplay("clear")
+
+  const swap = document.querySelector(".placementSwap");
+  swap?.addEventListener("click", placementSwap);
+
+  PlayerModule.switchActive();
+};
+/////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////
 const html = {
   splash: () => (main.innerHTML = splash),
   placementBoard: () => boardDisplay("placementScreen"),
-  hotswap: () => (main.innerHTML = hotswap),
+  hotswap: () => showHotswapModal(),
   mainGame: () => boardDisplay("mainGameScreen"),
 };
 
