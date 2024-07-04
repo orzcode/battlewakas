@@ -114,7 +114,7 @@ h1 {
 /* ----------------------------------------- */
 #infoDisplay {
 display: flex;
-flex-direction: column;
+flex-direction: row;
 align-items: center;
 justify-content: space-evenly;
 justify-self: start;
@@ -203,9 +203,8 @@ flex-wrap: wrap;
 align-items: center;
 justify-content: center;
 gap: 8rem;
-
-
 }
+
 
 .placementBoardTile {
   display: flex;

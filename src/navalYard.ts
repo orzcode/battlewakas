@@ -8,6 +8,7 @@ export class Ship {
   private _hits: number;
   private _sunk: boolean;
   private _positions: [];
+  private _isHorizontal: boolean;
 
   private shipNamer(length: number): string {
     switch (length) {
@@ -55,8 +56,10 @@ export class Ship {
     this._hits = 0;
     this._sunk = false;
     this._positions = [];
+    this._isHorizontal = true;
   }
   hit() {
+    
     if (this._hits === this._length) {
       return;
     } else this._hits++;

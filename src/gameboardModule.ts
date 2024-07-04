@@ -20,7 +20,7 @@ export class Gameboard {
 
   receiveAttack(position: string) {
     this[position].hitMark = true;
-    this[position].ship?.hit();
+  
   }
 
   receiveMiss(position: string) {
@@ -42,17 +42,14 @@ export class Gameboard {
   }
 
   checkAllSunk() {
-    let allSunk = true;
     for (const tile in this) {
       const ship = this[tile].ship;
-      if (ship === null) {
-        continue;
-      } else if (!ship.isSunk()) {
-        allSunk = false;
-        break;
+
+      if (ship && !ship.isSunk()) {
+        return false;
       }
     }
-    return allSunk;
+    return true;
   }
 
   // Other methods can be added here

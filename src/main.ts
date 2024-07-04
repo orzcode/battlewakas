@@ -11,7 +11,7 @@ import { wakas } from './svgs';
 
 // PlayerModule.player2.gameboard.placeShip(new Ship(5), "B1", "B2", "B3", "B4", "B5");
 // PlayerModule.player2.gameboard.placeShip(new Ship(3), "C6", "C7", "C8");
- PlayerModule.player2.gameboard.placeShip(new Ship(2), "E5", "E6");
+ //PlayerModule.player2.gameboard.placeShip(new Ship(2), "G6", "G7");
 // PlayerModule.player1.gameboard.receiveAttack("A1");
 // PlayerModule.player1.gameboard.receiveAttack("A2");
 // PlayerModule.player1.gameboard.receiveAttack("A3");
@@ -20,9 +20,9 @@ import { wakas } from './svgs';
 //console.log(PlayerModule.player2.gameboard);
 
 //html.splash();
-//html.placementBoard();
+html.placementBoard();
 //html.hotswap();
-html.mainGame();
+//html.mainGame();
 
 
 

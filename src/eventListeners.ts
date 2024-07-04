@@ -31,10 +31,11 @@ export const hitmarkApplication = () => {
       inactivePlayer.gameboard.receiveMiss(position);
       clickedTile.classList.add("miss");
     }
-
+    console.log(inactivePlayer.gameboard)
     if(inactivePlayer.gameboard.checkAllSunk()){
       //PROBLEM:
       //INACTIVE PLAYER SEEMINGLY ALWAYS HAS SUNK SHIPS
+      
       html.winner();
     }else {
     infoDisplay("swapBtn");
